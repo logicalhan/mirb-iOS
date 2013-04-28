@@ -4,7 +4,7 @@
 
 # mirb-iOS
 
-An embeddable Ruby read-eval-print loop for iOS.
+An muby read-eval-print loop for iOS.
 
 ## Installation
 
