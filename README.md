@@ -2,7 +2,7 @@
   <img src="http://jzzocc.com/images/mirb-iOS-icon-transparent.png" alt="mirb iOS icon" />
 </p>
 
-# mruby-iOS
+# mirb-iOS
 
 An embeddable Ruby read-eval-print loop for iOS.
 
