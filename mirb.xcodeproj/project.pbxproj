@@ -7,18 +7,52 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		203CDA5AE85C40F298A8AC25 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 379B243390844588A5D69DBF /* libPods.a */; };
+		D0821F11172DCA1B0052048C /* SourceCodePro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0821F10172DCA1B0052048C /* SourceCodePro-Regular.ttf */; };
+		D083D4F0172DB91900CF43D6 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D083D4EC172DB91900CF43D6 /* Default-Landscape@2x~ipad.png */; };
+		D083D4F1172DB91900CF43D6 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D083D4ED172DB91900CF43D6 /* Default-Landscape~ipad.png */; };
+		D083D4F2172DB91900CF43D6 /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D083D4EE172DB91900CF43D6 /* Default-Portrait@2x~ipad.png */; };
+		D083D4F3172DB91900CF43D6 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D083D4EF172DB91900CF43D6 /* Default-Portrait~ipad.png */; };
+		D083D4F8172DBA7600CF43D6 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = D083D4F4172DBA7600CF43D6 /* Icon-72.png */; };
+		D083D4F9172DBA7600CF43D6 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D083D4F5172DBA7600CF43D6 /* Icon-72@2x.png */; };
+		D083D4FA172DBA7600CF43D6 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D083D4F6172DBA7600CF43D6 /* Icon.png */; };
+		D083D4FB172DBA7600CF43D6 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D083D4F7172DBA7600CF43D6 /* Icon@2x.png */; };
 		D0A12CB9172DB3540008C85F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0A12CB8172DB3540008C85F /* UIKit.framework */; };
 		D0A12CBB172DB3540008C85F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0A12CBA172DB3540008C85F /* Foundation.framework */; };
 		D0A12CBD172DB3540008C85F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0A12CBC172DB3540008C85F /* CoreGraphics.framework */; };
 		D0A12CC3172DB3550008C85F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0A12CC1172DB3550008C85F /* InfoPlist.strings */; };
 		D0A12CC5172DB3550008C85F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A12CC4172DB3550008C85F /* main.m */; };
-		D0A12CC9172DB3550008C85F /* MBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A12CC8172DB3550008C85F /* MBAppDelegate.m */; };
 		D0A12CCB172DB3550008C85F /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D0A12CCA172DB3550008C85F /* Default.png */; };
 		D0A12CCD172DB3550008C85F /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0A12CCC172DB3550008C85F /* Default@2x.png */; };
 		D0A12CCF172DB3550008C85F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0A12CCE172DB3550008C85F /* Default-568h@2x.png */; };
+		D0A12CE8172DB3F90008C85F /* InputViewBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = D0A12CDC172DB3F90008C85F /* InputViewBackground.png */; };
+		D0A12CE9172DB3F90008C85F /* InputViewBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0A12CDD172DB3F90008C85F /* InputViewBackground@2x.png */; };
+		D0A12CEA172DB3F90008C85F /* InputViewForeground.png in Resources */ = {isa = PBXBuildFile; fileRef = D0A12CDE172DB3F90008C85F /* InputViewForeground.png */; };
+		D0A12CEB172DB3F90008C85F /* InputViewForeground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0A12CDF172DB3F90008C85F /* InputViewForeground@2x.png */; };
+		D0A12CEC172DB3F90008C85F /* MessageEntryInputField.png in Resources */ = {isa = PBXBuildFile; fileRef = D0A12CE0172DB3F90008C85F /* MessageEntryInputField.png */; };
+		D0A12CED172DB3F90008C85F /* MessageEntryInputField@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0A12CE1172DB3F90008C85F /* MessageEntryInputField@2x.png */; };
+		D0A12CEE172DB3F90008C85F /* SendButton.png in Resources */ = {isa = PBXBuildFile; fileRef = D0A12CE2172DB3F90008C85F /* SendButton.png */; };
+		D0A12CEF172DB3F90008C85F /* SendButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0A12CE3172DB3F90008C85F /* SendButton@2x.png */; };
+		D0C7209E172DBCAC00FFA982 /* MBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C7209D172DBCAC00FFA982 /* MBAppDelegate.m */; };
+		D0C720A4172DBD8800FFA982 /* NSString+mruby.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C720A3172DBD8800FFA982 /* NSString+mruby.m */; };
+		D0C720A7172DBE0900FFA982 /* UIFont+mirb.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C720A6172DBE0900FFA982 /* UIFont+mirb.m */; };
+		D0C720AA172DBE7A00FFA982 /* NSBubbleData+Code.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C720A9172DBE7900FFA982 /* NSBubbleData+Code.m */; };
+		D0C720AD172DBEEB00FFA982 /* MBInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C720AC172DBEEB00FFA982 /* MBInputView.m */; };
+		D0C720B0172DBFC300FFA982 /* MBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C720AF172DBFC300FFA982 /* MBViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B1B940A8619467C9767BF01 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		379B243390844588A5D69DBF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0821F10172DCA1B0052048C /* SourceCodePro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceCodePro-Regular.ttf"; sourceTree = "<group>"; };
+		D083D4EC172DB91900CF43D6 /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
+		D083D4ED172DB91900CF43D6 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
+		D083D4EE172DB91900CF43D6 /* Default-Portrait@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x~ipad.png"; sourceTree = "<group>"; };
+		D083D4EF172DB91900CF43D6 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~ipad.png"; sourceTree = "<group>"; };
+		D083D4F4172DBA7600CF43D6 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		D083D4F5172DBA7600CF43D6 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
+		D083D4F6172DBA7600CF43D6 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		D083D4F7172DBA7600CF43D6 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		D0A12CB5172DB3540008C85F /* mirb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mirb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0A12CB8172DB3540008C85F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D0A12CBA172DB3540008C85F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -27,11 +61,29 @@
 		D0A12CC2172DB3550008C85F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D0A12CC4172DB3550008C85F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D0A12CC6172DB3550008C85F /* mirb-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mirb-Prefix.pch"; sourceTree = "<group>"; };
-		D0A12CC7172DB3550008C85F /* MBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBAppDelegate.h; sourceTree = "<group>"; };
-		D0A12CC8172DB3550008C85F /* MBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBAppDelegate.m; sourceTree = "<group>"; };
 		D0A12CCA172DB3550008C85F /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		D0A12CCC172DB3550008C85F /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		D0A12CCE172DB3550008C85F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		D0A12CDC172DB3F90008C85F /* InputViewBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InputViewBackground.png; sourceTree = "<group>"; };
+		D0A12CDD172DB3F90008C85F /* InputViewBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "InputViewBackground@2x.png"; sourceTree = "<group>"; };
+		D0A12CDE172DB3F90008C85F /* InputViewForeground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InputViewForeground.png; sourceTree = "<group>"; };
+		D0A12CDF172DB3F90008C85F /* InputViewForeground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "InputViewForeground@2x.png"; sourceTree = "<group>"; };
+		D0A12CE0172DB3F90008C85F /* MessageEntryInputField.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MessageEntryInputField.png; sourceTree = "<group>"; };
+		D0A12CE1172DB3F90008C85F /* MessageEntryInputField@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MessageEntryInputField@2x.png"; sourceTree = "<group>"; };
+		D0A12CE2172DB3F90008C85F /* SendButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SendButton.png; sourceTree = "<group>"; };
+		D0A12CE3172DB3F90008C85F /* SendButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SendButton@2x.png"; sourceTree = "<group>"; };
+		D0C7209C172DBCAC00FFA982 /* MBAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBAppDelegate.h; path = Application/MBAppDelegate.h; sourceTree = "<group>"; };
+		D0C7209D172DBCAC00FFA982 /* MBAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBAppDelegate.m; path = Application/MBAppDelegate.m; sourceTree = "<group>"; };
+		D0C720A2172DBD8800FFA982 /* NSString+mruby.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+mruby.h"; path = "Categories/NSString+mruby.h"; sourceTree = "<group>"; };
+		D0C720A3172DBD8800FFA982 /* NSString+mruby.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+mruby.m"; path = "Categories/NSString+mruby.m"; sourceTree = "<group>"; };
+		D0C720A5172DBE0900FFA982 /* UIFont+mirb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIFont+mirb.h"; path = "Categories/UIFont+mirb.h"; sourceTree = "<group>"; };
+		D0C720A6172DBE0900FFA982 /* UIFont+mirb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIFont+mirb.m"; path = "Categories/UIFont+mirb.m"; sourceTree = "<group>"; };
+		D0C720A8172DBE7900FFA982 /* NSBubbleData+Code.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSBubbleData+Code.h"; path = "Categories/NSBubbleData+Code.h"; sourceTree = "<group>"; };
+		D0C720A9172DBE7900FFA982 /* NSBubbleData+Code.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSBubbleData+Code.m"; path = "Categories/NSBubbleData+Code.m"; sourceTree = "<group>"; };
+		D0C720AB172DBEEB00FFA982 /* MBInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBInputView.h; path = Views/MBInputView.h; sourceTree = "<group>"; };
+		D0C720AC172DBEEB00FFA982 /* MBInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBInputView.m; path = Views/MBInputView.m; sourceTree = "<group>"; };
+		D0C720AE172DBFC300FFA982 /* MBViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBViewController.h; path = "View Controllers/MBViewController.h"; sourceTree = "<group>"; };
+		D0C720AF172DBFC300FFA982 /* MBViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBViewController.m; path = "View Controllers/MBViewController.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,18 +94,32 @@
 				D0A12CB9172DB3540008C85F /* UIKit.framework in Frameworks */,
 				D0A12CBB172DB3540008C85F /* Foundation.framework in Frameworks */,
 				D0A12CBD172DB3540008C85F /* CoreGraphics.framework in Frameworks */,
+				203CDA5AE85C40F298A8AC25 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D0821F0D172DC8870052048C /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				D0821F10172DCA1B0052048C /* SourceCodePro-Regular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		D0A12CAC172DB3540008C85F = {
 			isa = PBXGroup;
 			children = (
+				D083D4F4172DBA7600CF43D6 /* Icon-72.png */,
+				D083D4F5172DBA7600CF43D6 /* Icon-72@2x.png */,
+				D083D4F6172DBA7600CF43D6 /* Icon.png */,
+				D083D4F7172DBA7600CF43D6 /* Icon@2x.png */,
 				D0A12CBE172DB3540008C85F /* mirb */,
 				D0A12CB7172DB3540008C85F /* Frameworks */,
 				D0A12CB6172DB3540008C85F /* Products */,
+				2B1B940A8619467C9767BF01 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,6 +137,7 @@
 				D0A12CB8172DB3540008C85F /* UIKit.framework */,
 				D0A12CBA172DB3540008C85F /* Foundation.framework */,
 				D0A12CBC172DB3540008C85F /* CoreGraphics.framework */,
+				379B243390844588A5D69DBF /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -78,9 +145,12 @@
 		D0A12CBE172DB3540008C85F /* mirb */ = {
 			isa = PBXGroup;
 			children = (
-				D0A12CC7172DB3550008C85F /* MBAppDelegate.h */,
-				D0A12CC8172DB3550008C85F /* MBAppDelegate.m */,
+				D0C7209A172DBC7100FFA982 /* Application */,
+				D0C7209F172DBD1500FFA982 /* Categories */,
+				D0A12CD5172DB3F90008C85F /* Resources */,
 				D0A12CBF172DB3550008C85F /* Supporting Files */,
+				D0C720A1172DBD2200FFA982 /* View Controllers */,
+				D0C720A0172DBD1C00FFA982 /* Views */,
 			);
 			path = mirb;
 			sourceTree = "<group>";
@@ -88,15 +158,83 @@
 		D0A12CBF172DB3550008C85F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D0A12CC0172DB3550008C85F /* mirb-Info.plist */,
-				D0A12CC1172DB3550008C85F /* InfoPlist.strings */,
-				D0A12CC4172DB3550008C85F /* main.m */,
-				D0A12CC6172DB3550008C85F /* mirb-Prefix.pch */,
+				D0A12CCE172DB3550008C85F /* Default-568h@2x.png */,
+				D083D4EC172DB91900CF43D6 /* Default-Landscape@2x~ipad.png */,
+				D083D4ED172DB91900CF43D6 /* Default-Landscape~ipad.png */,
+				D083D4EE172DB91900CF43D6 /* Default-Portrait@2x~ipad.png */,
+				D083D4EF172DB91900CF43D6 /* Default-Portrait~ipad.png */,
 				D0A12CCA172DB3550008C85F /* Default.png */,
 				D0A12CCC172DB3550008C85F /* Default@2x.png */,
-				D0A12CCE172DB3550008C85F /* Default-568h@2x.png */,
+				D0A12CC1172DB3550008C85F /* InfoPlist.strings */,
+				D0A12CC4172DB3550008C85F /* main.m */,
+				D0A12CC0172DB3550008C85F /* mirb-Info.plist */,
+				D0A12CC6172DB3550008C85F /* mirb-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D0A12CD5172DB3F90008C85F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D0821F0D172DC8870052048C /* Fonts */,
+				D0A12CD6172DB3F90008C85F /* Images */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		D0A12CD6172DB3F90008C85F /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				D0A12CDC172DB3F90008C85F /* InputViewBackground.png */,
+				D0A12CDD172DB3F90008C85F /* InputViewBackground@2x.png */,
+				D0A12CDE172DB3F90008C85F /* InputViewForeground.png */,
+				D0A12CDF172DB3F90008C85F /* InputViewForeground@2x.png */,
+				D0A12CE0172DB3F90008C85F /* MessageEntryInputField.png */,
+				D0A12CE1172DB3F90008C85F /* MessageEntryInputField@2x.png */,
+				D0A12CE2172DB3F90008C85F /* SendButton.png */,
+				D0A12CE3172DB3F90008C85F /* SendButton@2x.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		D0C7209A172DBC7100FFA982 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				D0C7209C172DBCAC00FFA982 /* MBAppDelegate.h */,
+				D0C7209D172DBCAC00FFA982 /* MBAppDelegate.m */,
+			);
+			name = Application;
+			sourceTree = "<group>";
+		};
+		D0C7209F172DBD1500FFA982 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				D0C720A2172DBD8800FFA982 /* NSString+mruby.h */,
+				D0C720A3172DBD8800FFA982 /* NSString+mruby.m */,
+				D0C720A5172DBE0900FFA982 /* UIFont+mirb.h */,
+				D0C720A6172DBE0900FFA982 /* UIFont+mirb.m */,
+				D0C720A8172DBE7900FFA982 /* NSBubbleData+Code.h */,
+				D0C720A9172DBE7900FFA982 /* NSBubbleData+Code.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		D0C720A0172DBD1C00FFA982 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D0C720AB172DBEEB00FFA982 /* MBInputView.h */,
+				D0C720AC172DBEEB00FFA982 /* MBInputView.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		D0C720A1172DBD2200FFA982 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D0C720AE172DBFC300FFA982 /* MBViewController.h */,
+				D0C720AF172DBFC300FFA982 /* MBViewController.m */,
+			);
+			name = "View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -106,9 +244,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D0A12CD2172DB3550008C85F /* Build configuration list for PBXNativeTarget "mirb" */;
 			buildPhases = (
+				EF910B6F718A493CB1F250BB /* Check Pods Manifest.lock */,
 				D0A12CB1172DB3540008C85F /* Sources */,
 				D0A12CB2172DB3540008C85F /* Frameworks */,
 				D0A12CB3172DB3540008C85F /* Resources */,
+				0A68BBEB0621422C91F4B39A /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -155,10 +295,58 @@
 				D0A12CCB172DB3550008C85F /* Default.png in Resources */,
 				D0A12CCD172DB3550008C85F /* Default@2x.png in Resources */,
 				D0A12CCF172DB3550008C85F /* Default-568h@2x.png in Resources */,
+				D0A12CE8172DB3F90008C85F /* InputViewBackground.png in Resources */,
+				D0A12CE9172DB3F90008C85F /* InputViewBackground@2x.png in Resources */,
+				D0A12CEA172DB3F90008C85F /* InputViewForeground.png in Resources */,
+				D0A12CEB172DB3F90008C85F /* InputViewForeground@2x.png in Resources */,
+				D0A12CEC172DB3F90008C85F /* MessageEntryInputField.png in Resources */,
+				D0A12CED172DB3F90008C85F /* MessageEntryInputField@2x.png in Resources */,
+				D0A12CEE172DB3F90008C85F /* SendButton.png in Resources */,
+				D0A12CEF172DB3F90008C85F /* SendButton@2x.png in Resources */,
+				D083D4F0172DB91900CF43D6 /* Default-Landscape@2x~ipad.png in Resources */,
+				D083D4F1172DB91900CF43D6 /* Default-Landscape~ipad.png in Resources */,
+				D083D4F2172DB91900CF43D6 /* Default-Portrait@2x~ipad.png in Resources */,
+				D083D4F3172DB91900CF43D6 /* Default-Portrait~ipad.png in Resources */,
+				D083D4F8172DBA7600CF43D6 /* Icon-72.png in Resources */,
+				D083D4F9172DBA7600CF43D6 /* Icon-72@2x.png in Resources */,
+				D083D4FA172DBA7600CF43D6 /* Icon.png in Resources */,
+				D083D4FB172DBA7600CF43D6 /* Icon@2x.png in Resources */,
+				D0821F11172DCA1B0052048C /* SourceCodePro-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0A68BBEB0621422C91F4B39A /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+		};
+		EF910B6F718A493CB1F250BB /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sanbox is not in sync with the Podfile.lock. Run 'pod install'.\nEOM\n    exit 1\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D0A12CB1172DB3540008C85F /* Sources */ = {
@@ -166,7 +354,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0A12CC5172DB3550008C85F /* main.m in Sources */,
-				D0A12CC9172DB3550008C85F /* MBAppDelegate.m in Sources */,
+				D0C7209E172DBCAC00FFA982 /* MBAppDelegate.m in Sources */,
+				D0C720A4172DBD8800FFA982 /* NSString+mruby.m in Sources */,
+				D0C720A7172DBE0900FFA982 /* UIFont+mirb.m in Sources */,
+				D0C720AA172DBE7A00FFA982 /* NSBubbleData+Code.m in Sources */,
+				D0C720AD172DBEEB00FFA982 /* MBInputView.m in Sources */,
+				D0C720B0172DBFC300FFA982 /* MBViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,10 +437,12 @@
 		};
 		D0A12CD3172DB3550008C85F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2B1B940A8619467C9767BF01 /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "mirb/mirb-Prefix.pch";
 				INFOPLIST_FILE = "mirb/mirb-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -255,10 +450,12 @@
 		};
 		D0A12CD4172DB3550008C85F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2B1B940A8619467C9767BF01 /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "mirb/mirb-Prefix.pch";
 				INFOPLIST_FILE = "mirb/mirb-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -283,6 +480,7 @@
 				D0A12CD4172DB3550008C85F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

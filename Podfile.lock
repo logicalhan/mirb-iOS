@@ -1,0 +1,23 @@
+PODS:
+  - DAKeyboardControl (2.2.0)
+  - HPGrowingTextView (0.0.1)
+  - mruby-iOS (0.0.1)
+  - UIBubbleTableView (0.2)
+
+DEPENDENCIES:
+  - DAKeyboardControl (~> 2.2.0)
+  - HPGrowingTextView (~> 0.0.1)
+  - mruby-iOS (from `https://github.com/jzzocc/mruby-iOS.git`)
+  - UIBubbleTableView (~> 0.2)
+
+EXTERNAL SOURCES:
+  mruby-iOS:
+    :git: https://github.com/jzzocc/mruby-iOS.git
+
+SPEC CHECKSUMS:
+  DAKeyboardControl: 64d5b35257a433abbcea57202b741f72c623d9ca
+  HPGrowingTextView: 42fee2f684a8c98e61bc19579d274d7fc12b48ca
+  mruby-iOS: ac8efa3e58133bd7503a95bac594363f6c532d86
+  UIBubbleTableView: 08dcbbb351538139d7a2a01216bb427ad4253bb1
+
+COCOAPODS: 0.18.1
