@@ -36,7 +36,10 @@ Use mirb-iOS just like irb or any other REPL:
 
 ## Credits
 
-mirb-iOS is powered by [mruby](https://github.com/mruby/mruby) and borrows heavily from [the original mirb](https://github.com/mruby/mruby/blob/master/mrbgems/mruby-bin-mirb/tools/mirb/mirb.c). [ios-ruby-embedded](https://github.com/carsonmcdonald/ios-ruby-embedded), [DAKeyboardControl](https://github.com/danielamitay/DAKeyboardControl), [HPGrowingTextView](https://github.com/HansPinckaers/GrowingTextView) and [UIBubbleTableView](http://github.com/AlexBarinov/UIBubbleTableView) were all invaluable in the construction of mirb-iOS.
+mirb-iOS is powered by [mruby](https://github.com/mruby/mruby) and borrows heavily from [the original mirb](https://github.com/mruby/mruby/blob/master/mrbgems/mruby-bin-mirb/tools/mirb/mirb.c).
+
+[ios-ruby-embedded](https://github.com/carsonmcdonald/ios-ruby-embedded), [DAKeyboardControl](https://github.com/danielamitay/DAKeyboardControl), [HPGrowingTextView](https://github.com/HansPinckaers/GrowingTextView) [UIBubbleTableView](http://github.com/AlexBarinov/UIBubbleTableView) and [Source Code Pro](https://github.com/adobe/source-code-pro) were all invaluable in the construction of mirb-iOS.
+
 The Ruby logo is © 2006 Yukihiro Matsumoto and used under the terms of the [Creative Commons Attribution-ShareAlike 2.5 License](http://creativecommons.org/licenses/by-sa/2.5/).
 
 ## License
