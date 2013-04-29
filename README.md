@@ -4,7 +4,7 @@
 
 # mirb-iOS
 
-An muby read-eval-print loop for iOS.
+An mruby read-eval-print loop for iOS.
 
 ## Installation
 
