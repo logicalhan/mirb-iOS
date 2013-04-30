@@ -33,6 +33,8 @@
               error:(MBParserMessageBlock)error
                warn:(MBParserMessageBlock)warn
 {
+    NSAssert(state != NULL, @"state should not be null");
+    NSAssert(context != NULL, @"context should not be null");
     NSString *resultAsString;
     int arenaPosition = mrb_gc_arena_save(state);
     struct mrb_parser_state *parserState = mrb_parser_new(state);
@@ -40,7 +42,7 @@
     parserState->s = codeAsCString;
     parserState->send = codeAsCString + strlen(codeAsCString);
     mrb_parser_parse(parserState, context);
-    if (parserState->nerr)
+    if (error && parserState->nerr)
     {
         for (size_t i = 0; i < parserState->nerr; ++i)
         {
@@ -51,11 +53,14 @@
     }
     else
     {
-        for (size_t i = 0; i < parserState->nwarn; ++i)
+        if (warn)
         {
-            warn(parserState->warn_buffer[i].lineno,
-                 parserState->warn_buffer[i].column,
-                 [NSString stringWithUTF8String:parserState->warn_buffer[i].message]);
+            for (size_t i = 0; i < parserState->nwarn; ++i)
+            {
+                warn(parserState->warn_buffer[i].lineno,
+                     parserState->warn_buffer[i].column,
+                     [NSString stringWithUTF8String:parserState->warn_buffer[i].message]);
+            }
         }
         
         int n = mrb_generate_code(state, parserState);
