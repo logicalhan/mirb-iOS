@@ -1,4 +1,4 @@
-// NSString+mruby.m
+// MBParser.h
 // 
 // Copyright (c) 2013 Justin Mazzocchi
 //
@@ -20,14 +20,18 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "NSString+mruby.h"
-#import <MRuby/mruby/string.h>
+#import <Foundation/Foundation.h>
+#import <MRuby/MRuby.h>
+#import <MRuby/mruby/compile.h>
 
-@implementation NSString (mruby)
+typedef void(^MBParserMessageBlock)(NSInteger lineNumber, NSInteger column, NSString *message);
 
-+ (NSString *)stringWithValue:(mrb_value)value state:(mrb_state *)state
-{
-    return [NSString stringWithUTF8String:RSTRING_PTR(mrb_funcall(state, value, "inspect", 0))];
-}
+@interface MBParser : NSObject
+
++ (NSString *)parse:(NSString *)code
+          withState:(mrb_state *)state
+            context:(mrbc_context *)context
+              error:(MBParserMessageBlock)error
+               warn:(MBParserMessageBlock)warn;
 
 @end

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		203CDA5AE85C40F298A8AC25 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 379B243390844588A5D69DBF /* libPods.a */; };
+		D044EC7C172F49E30084326E /* MBParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D044EC7B172F49E30084326E /* MBParser.m */; };
 		D0821F11172DCA1B0052048C /* SourceCodePro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0821F10172DCA1B0052048C /* SourceCodePro-Regular.ttf */; };
 		D083D4F0172DB91900CF43D6 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D083D4EC172DB91900CF43D6 /* Default-Landscape@2x~ipad.png */; };
 		D083D4F1172DB91900CF43D6 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D083D4ED172DB91900CF43D6 /* Default-Landscape~ipad.png */; };
@@ -44,6 +45,8 @@
 /* Begin PBXFileReference section */
 		2B1B940A8619467C9767BF01 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		379B243390844588A5D69DBF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D044EC7A172F49E30084326E /* MBParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBParser.h; path = Utilities/MBParser.h; sourceTree = "<group>"; };
+		D044EC7B172F49E30084326E /* MBParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBParser.m; path = Utilities/MBParser.m; sourceTree = "<group>"; };
 		D0821F10172DCA1B0052048C /* SourceCodePro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceCodePro-Regular.ttf"; sourceTree = "<group>"; };
 		D083D4EC172DB91900CF43D6 /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
 		D083D4ED172DB91900CF43D6 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
@@ -101,6 +104,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D044EC79172F49C00084326E /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				D044EC7A172F49E30084326E /* MBParser.h */,
+				D044EC7B172F49E30084326E /* MBParser.m */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
 		D0821F0D172DC8870052048C /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +161,7 @@
 				D0C7209F172DBD1500FFA982 /* Categories */,
 				D0A12CD5172DB3F90008C85F /* Resources */,
 				D0A12CBF172DB3550008C85F /* Supporting Files */,
+				D044EC79172F49C00084326E /* Utilities */,
 				D0C720A1172DBD2200FFA982 /* View Controllers */,
 				D0C720A0172DBD1C00FFA982 /* Views */,
 			);
@@ -360,6 +373,7 @@
 				D0C720AA172DBE7A00FFA982 /* NSBubbleData+Code.m in Sources */,
 				D0C720AD172DBEEB00FFA982 /* MBInputView.m in Sources */,
 				D0C720B0172DBFC300FFA982 /* MBViewController.m in Sources */,
+				D044EC7C172F49E30084326E /* MBParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -23,13 +23,10 @@
 #import "MBViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import <MRuby/MRuby.h>
-#import <MRuby/mruby/proc.h>
-#import <MRuby/mruby/data.h>
 #import <MRuby/mruby/compile.h>
-#import <MRuby/mruby/string.h>
-#import "NSString+MRuby.h"
 #import <DAKeyboardControl.h>
 #import <UIBubbleTableView.h>
+#import "MBParser.h"
 #import "MBInputView.h"
 #import "NSBubbleData+Code.h"
 
@@ -41,8 +38,8 @@ static CGFloat const MBNewlineDelta = 20;
 
 @interface MBViewController ()
 
-@property (nonatomic) mrb_state *mrubyState;
-@property (nonatomic) mrbc_context *mrubyParsingContext;
+@property (nonatomic) mrb_state *state;
+@property (nonatomic) mrbc_context *context;
 @property (nonatomic, strong) UIBubbleTableView *bubbleTableView;
 @property (nonatomic, strong) MBInputView *inputView;
 @property (nonatomic, strong) NSMutableArray *bubbleData;
@@ -58,9 +55,9 @@ static CGFloat const MBNewlineDelta = 20;
 {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
     {
-        self.mrubyState = mrb_open();
-        self.mrubyParsingContext = mrbc_context_new(self.mrubyState);
-        self.mrubyParsingContext->capture_errors = 1;
+        self.state = mrb_open();
+        self.context = mrbc_context_new(self.state);
+        self.context->capture_errors = 1;
         self.bubbleData = [NSMutableArray array];
         
         // Redirect mruby output from stdout into a pipe
@@ -79,8 +76,8 @@ static CGFloat const MBNewlineDelta = 20;
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    mrbc_context_free(self.mrubyState, self.mrubyParsingContext);
-    mrb_close(self.mrubyState);
+    mrbc_context_free(self.state, self.context);
+    mrb_close(self.state);
     self.bubbleTableView = nil;
     self.inputView = nil;
     self.bubbleData = nil;
@@ -188,7 +185,27 @@ static CGFloat const MBNewlineDelta = 20;
                                                      date:[NSDate date]
                                                      type:BubbleTypeMine]];
     [self.bubbleTableView reloadData];
-    [self parseStringOfRubyCode:self.inputView.growingTextView.text];
+    NSString *output = [MBParser parse:self.inputView.growingTextView.text
+                             withState:self.state
+                               context:self.context
+                                 error:^(NSInteger lineNumber, NSInteger column, NSString *message)
+                        {
+                            [self outputText:[NSString stringWithFormat:NSLocalizedString(@"Error: line %d column %d: %@", nil),
+                                              lineNumber,
+                                              column,
+                                              message]];
+                        }
+                                  warn:^(NSInteger lineNumber, NSInteger column, NSString *message)
+                        {
+                            [self outputText:[NSString stringWithFormat:NSLocalizedString(@"Warning: line %d column %d: %@", nil),
+                                              lineNumber,
+                                              column,
+                                              message]];
+                        }];
+    if (output)
+    {
+        [self outputText:output];
+    }
     self.inputView.growingTextView.text = @"";
 }
 
@@ -213,63 +230,6 @@ static CGFloat const MBNewlineDelta = 20;
         CGPoint end = CGPointMake(0, self.bubbleTableView.contentSize.height - self.bubbleTableView.bounds.size.height);
         [self.bubbleTableView setContentOffset:end animated:YES];
     }
-}
-
-#pragma mark - Ruby
-
-- (void)parseStringOfRubyCode:(NSString *)rubyCode
-{
-    int arenaPosition = mrb_gc_arena_save(self.mrubyState);
-    struct mrb_parser_state *parserState = mrb_parser_new(self.mrubyState);
-    const char *rubyCodeAsCString = rubyCode.UTF8String;
-    parserState->s = rubyCodeAsCString;
-    parserState->send = rubyCodeAsCString + strlen(rubyCodeAsCString);
-    mrb_parser_parse(parserState, self.mrubyParsingContext);
-    if (parserState->nerr)
-    {
-        for (size_t i = 0; i < parserState->nerr; ++i)
-        {
-            [self outputText:[NSString stringWithFormat:NSLocalizedString(@"Error: line %d column %d: %s", nil),
-                              parserState->error_buffer[i].lineno,
-                              parserState->error_buffer[i].column,
-                              parserState->error_buffer[i].message]];
-        }
-    }
-    else
-    {
-        for (size_t i = 0; i < parserState->nwarn; ++i)
-        {
-            [self outputText:[NSString stringWithFormat:NSLocalizedString(@"Warning: line %d column %d: %s", nil),
-                              parserState->warn_buffer[i].lineno,
-                              parserState->warn_buffer[i].column,
-                              parserState->warn_buffer[i].message]];
-        }
-        
-        int n = mrb_generate_code(self.mrubyState, parserState);
-        mrb_value result = mrb_run(self.mrubyState,
-                                   mrb_proc_new(self.mrubyState, self.mrubyState->irep[n]),
-                                   mrb_top_self(self.mrubyState));
-        // Force the stdout buffer to output, necessary when not attached to the debugger on iOS > 5.1
-        fflush(stdout);
-        
-        if (self.mrubyState->exc)
-        {
-            [self outputText:[NSString stringWithValue:mrb_obj_value(self.mrubyState->exc)
-                                            mrubyState:self.mrubyState]];
-            self.mrubyState->exc = 0;
-        }
-        else
-        {
-            if (!mrb_respond_to(self.mrubyState, result, mrb_intern(self.mrubyState, "inspect")))
-            {
-                result = mrb_any_to_s(self.mrubyState, result);
-            }
-            [self outputText:[NSString stringWithFormat:NSLocalizedString(@"=> %@", nil), [NSString stringWithValue:result
-                                                                                                         mrubyState:self.mrubyState]]];
-        }
-    }
-    mrb_parser_free(parserState);
-    mrb_gc_arena_restore(self.mrubyState, arenaPosition);
 }
 
 @end

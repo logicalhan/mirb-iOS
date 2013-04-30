@@ -25,6 +25,6 @@
 
 @interface NSString (mruby)
 
-+ (NSString *)stringWithValue:(mrb_value)value mrubyState:(mrb_state *)state;
++ (NSString *)stringWithValue:(mrb_value)value state:(mrb_state *)state;
 
 @end
