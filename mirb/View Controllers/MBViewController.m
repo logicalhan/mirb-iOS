@@ -204,7 +204,7 @@ static CGFloat const MBNewlineDelta = 20;
                         }];
     if (output)
     {
-        [self outputText:output];
+        [self outputText:NSLocalizedString(output, nil)];
     }
     self.inputView.growingTextView.text = @"";
 }
