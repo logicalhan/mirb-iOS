@@ -22,7 +22,6 @@
 
 #import "MBInputView.h"
 #import "UIFont+mirb.h"
-#import <HPGrowingTextView.h>
 
 static CGFloat const MBInputViewHorizontalPadding = 5;
 static CGFloat const MBLeftCapWidth = 13;
@@ -41,7 +40,17 @@ static NSString * const MBInputViewBackgroundImage = @"InputViewBackground.png";
 static NSString * const MBInputViewForegroundImage = @"InputViewForeground.png";
 static NSString * const MBSendButtonBackgroundImage = @"SendButton.png";
 
+@interface MBInputView ()
+
+@property (nonatomic, strong) UIButton *sendButton;
+@property (nonatomic, strong) HPGrowingTextView *growingTextView;
+
+@end
+
 @implementation MBInputView
+{}
+
+#pragma mark - Lifecycle
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -57,6 +66,10 @@ static NSString * const MBSendButtonBackgroundImage = @"SendButton.png";
         [self addSubview:background];
         
         self.sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.sendButton addTarget:self
+                            action:@selector(inputText)
+                  forControlEvents:UIControlEventTouchUpInside];
+        self.sendButton.enabled = NO;
         UIImage *sendButtonBackgroundImage = [[UIImage imageNamed:MBSendButtonBackgroundImage] stretchableImageWithLeftCapWidth:MBLeftCapWidth
                                                                                                                    topCapHeight:0];
         [self.sendButton setBackgroundImage:sendButtonBackgroundImage
@@ -85,6 +98,7 @@ static NSString * const MBSendButtonBackgroundImage = @"SendButton.png";
                                 initWithFrame:(CGRect){MBGrowingTextViewOrigin,
                                     self.frame.size.width - MBInputViewHorizontalPadding * 2.5 - (self.frame.size.width - self.sendButton.frame.origin.x),
                                     self.frame.size.height}];
+        self.growingTextView.delegate = self;
         self.growingTextView.contentInset = MBGrowingTextViewInsets;
         self.growingTextView.font = [UIFont mirbFont];
         self.growingTextView.internalTextView.scrollIndicatorInsets = MBGrowingTextViewInternalScrollIndicatorInsets;
@@ -117,8 +131,46 @@ static NSString * const MBSendButtonBackgroundImage = @"SendButton.png";
 
 - (void)dealloc
 {
-    self.sendButton = nil;
-    self.growingTextView = nil;
+    self.delegate = nil;
+}
+
+#pragma mark - maxNumberOfLines property
+
+- (void)setMaxNumberOfLines:(NSInteger)maxNumberOfLines
+{
+    self.growingTextView.maxNumberOfLines = maxNumberOfLines;
+}
+
+- (NSInteger)maxNumberOfLines
+{
+    return self.growingTextView.maxNumberOfLines;
+}
+
+#pragma mark - Text input
+
+- (void)inputText
+{
+    if ([self.delegate respondsToSelector:@selector(inputView:didInputText:)])
+    {
+        [self.delegate inputView:self didInputText:self.growingTextView.text];
+    }
+    self.growingTextView.text = @"";
+}
+
+#pragma mark - HPGrowingTextViewDelegate
+
+- (void)growingTextViewDidChange:(HPGrowingTextView *)growingTextView
+{
+    // Disable Send button if no text is entered
+    self.sendButton.enabled = growingTextView.text.length > 0;
+}
+
+- (void)growingTextView:(HPGrowingTextView *)growingTextView willChangeHeight:(float)height
+{
+    if ([self.delegate respondsToSelector:@selector(inputView:willChangeHeight:)])
+    {
+        [self.delegate inputView:self willChangeHeight:height];
+    }
 }
 
 @end

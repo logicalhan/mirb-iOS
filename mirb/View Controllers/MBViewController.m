@@ -27,7 +27,6 @@
 #import <DAKeyboardControl.h>
 #import <UIBubbleTableView.h>
 #import "MBParser.h"
-#import "MBInputView.h"
 #import "NSBubbleData+Code.h"
 
 static CGFloat const MBBackgroundHue = 217.0 / 360.0;
@@ -66,7 +65,7 @@ static CGFloat const MBNewlineDelta = 20;
         [stdoutPipe.fileHandleForReading readInBackgroundAndNotify];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(updateOutput:)
+                                                 selector:@selector(stdoutPipeFileHandleDidCompleteReading:)
                                                      name:NSFileHandleReadCompletionNotification
                                                    object:stdoutPipe.fileHandleForReading];
     }
@@ -78,9 +77,6 @@ static CGFloat const MBNewlineDelta = 20;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     mrbc_context_free(self.state, self.context);
     mrb_close(self.state);
-    self.bubbleTableView = nil;
-    self.inputView = nil;
-    self.bubbleData = nil;
 }
 
 #pragma mark - View
@@ -103,12 +99,7 @@ static CGFloat const MBNewlineDelta = 20;
                                                                    self.view.bounds.size.height - MBContainerHeight,
                                                                    self.view.bounds.size.width,
                                                                    MBContainerHeight)];
-    
-    [self.inputView.sendButton addTarget:self
-                                  action:@selector(processInput:)
-                        forControlEvents:UIControlEventTouchUpInside];
-    self.inputView.sendButton.enabled = NO;
-    self.inputView.growingTextView.delegate = self;
+    self.inputView.delegate = self;
     
     [self.view addSubview:self.bubbleTableView];
     [self.view addSubview:self.inputView];
@@ -123,7 +114,7 @@ static CGFloat const MBNewlineDelta = 20;
          inputViewFrame.origin.y = keyboardFrameInView.origin.y - inputViewFrame.size.height;
          blockInputView.frame = inputViewFrame;
          // Ensure that the growing text view will always have the proper maximum amount of lines
-         blockInputView.growingTextView.maxNumberOfLines = (blockInputView.frame.origin.y + blockInputView.frame.size.height - MBContainerHeight) / MBNewlineDelta + 1;
+         blockInputView.maxNumberOfLines = (blockInputView.frame.origin.y + blockInputView.frame.size.height - MBContainerHeight) / MBNewlineDelta + 1;
          
          CGRect bubbleTableViewFrame = blockBubbleTableView.frame;
          bubbleTableViewFrame.size.height = inputViewFrame.origin.y;
@@ -149,81 +140,72 @@ static CGFloat const MBNewlineDelta = 20;
     return self.bubbleData[row];
 }
 
-#pragma mark - HPGrowingTextViewDelegate
+#pragma mark - MBInputViewDelegate
 
-- (void)growingTextViewDidChange:(HPGrowingTextView *)growingTextView
+- (void)inputView:(MBInputView *)inputView willChangeHeight:(CGFloat)height
 {
-    // Disable Send button if no text is entered
-    self.inputView.sendButton.enabled = growingTextView.text.length > 0;
-}
-
-- (void)growingTextView:(HPGrowingTextView *)growingTextView willChangeHeight:(float)height
-{
-    CGFloat delta = growingTextView.frame.size.height - height;
-	CGRect inputViewFrame = self.inputView.frame;
+    CGFloat delta = inputView.frame.size.height - height;
+	CGRect inputViewFrame = inputView.frame;
     
     inputViewFrame.size.height -= delta;
     inputViewFrame.origin.y += delta;
-	self.inputView.frame = inputViewFrame;
-    self.view.keyboardTriggerOffset = self.inputView.bounds.size.height;
+	inputView.frame = inputViewFrame;
+    self.view.keyboardTriggerOffset = inputView.bounds.size.height;
     
     // Fixes a possible autorotation bug
-    if (self.bubbleTableView.frame.origin.y + self.bubbleTableView.frame.size.height < self.inputView.frame.origin.y)
+    if (self.bubbleTableView.frame.origin.y + self.bubbleTableView.frame.size.height < inputView.frame.origin.y)
     {
         CGRect bubbleTableFrame = self.bubbleTableView.frame;
         bubbleTableFrame.origin = CGPointZero;
-        bubbleTableFrame.size.height = self.inputView.frame.origin.y;
+        bubbleTableFrame.size.height = inputView.frame.origin.y;
         self.bubbleTableView.frame = bubbleTableFrame;
     }
 }
 
-#pragma mark - I/O
-
-- (void)processInput:(id)sender
+- (void)inputView:(MBInputView *)inputView didInputText:(NSString *)text
 {
-    [self.bubbleData addObject:[NSBubbleData dataWithCode:self.inputView.growingTextView.text
-                                                     date:[NSDate date]
-                                                     type:BubbleTypeMine]];
-    [self.bubbleTableView reloadData];
-    NSString *output = [MBParser parse:self.inputView.growingTextView.text
+    [self addBubble:text type:BubbleTypeMine];
+    NSString *output = [MBParser parse:text
                              withState:self.state
                                context:self.context
                                  error:^(NSInteger lineNumber, NSInteger column, NSString *message)
                         {
-                            [self outputText:[NSString stringWithFormat:NSLocalizedString(@"Error: line %d column %d: %@", nil),
+                            [self addBubble:[NSString stringWithFormat:NSLocalizedString(@"Error: line %d column %d: %@", nil),
                                               lineNumber,
                                               column,
-                                              message]];
+                                              message]
+                                        type:BubbleTypeSomeoneElse];
                         }
                                   warn:^(NSInteger lineNumber, NSInteger column, NSString *message)
                         {
-                            [self outputText:[NSString stringWithFormat:NSLocalizedString(@"Warning: line %d column %d: %@", nil),
+                            [self addBubble:[NSString stringWithFormat:NSLocalizedString(@"Warning: line %d column %d: %@", nil),
                                               lineNumber,
                                               column,
-                                              message]];
+                                              message]
+                                        type:BubbleTypeSomeoneElse];
                         }];
-    if (output)
-    {
-        [self outputText:NSLocalizedString(output, nil)];
-    }
-    self.inputView.growingTextView.text = @"";
+    [self addBubble:NSLocalizedString(output, nil) type:BubbleTypeSomeoneElse];
 }
 
-- (void)updateOutput:(NSNotification *)notification
+#pragma mark - stdout pipe handling
+
+- (void)stdoutPipeFileHandleDidCompleteReading:(NSNotification *)notification
 {
     NSFileHandle *stdoutPipeFileHandleForReading = notification.object;
     [stdoutPipeFileHandleForReading readInBackgroundAndNotify];
     
     NSString *output = [[NSString alloc] initWithData:notification.userInfo[NSFileHandleNotificationDataItem]
                                              encoding:NSUTF8StringEncoding];
-    [self outputText:output];
+    [self addBubble:output type:BubbleTypeSomeoneElse];
 }
 
-- (void)outputText:(NSString *)text
+#pragma mark - Output
+
+- (void)addBubble:(NSString *)text type:(NSBubbleType)type
 {
     [self.bubbleData addObject:[NSBubbleData dataWithCode:text
                                                      date:[NSDate date]
-                                                     type:BubbleTypeSomeoneElse]];
+                                                     type:type]];
     [self.bubbleTableView reloadData];
     if (self.bubbleTableView.contentSize.height > self.bubbleTableView.bounds.size.height - self.bubbleTableView.contentInset.bottom)
     {

@@ -21,12 +21,22 @@
 // THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
+#import <HPGrowingTextView.h>
 
-@class HPGrowingTextView;
+@protocol MBInputViewDelegate;
 
-@interface MBInputView : UIView
+@interface MBInputView : UIView<HPGrowingTextViewDelegate>
 
-@property (nonatomic, strong) UIButton *sendButton;
-@property (nonatomic, strong) HPGrowingTextView *growingTextView;
+@property (nonatomic, weak) id<MBInputViewDelegate> delegate;
+@property (nonatomic) NSInteger maxNumberOfLines;
+
+@end
+
+@protocol MBInputViewDelegate <NSObject>
+
+@optional
+
+- (void)inputView:(MBInputView *)inputView didInputText:(NSString *)text;
+- (void)inputView:(MBInputView *)inputView willChangeHeight:(CGFloat)height;
 
 @end

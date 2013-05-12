@@ -21,9 +21,9 @@
 // THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
-#import <HPGrowingTextView.h>
 #import <UIBubbleTableViewDataSource.h>
+#import "MBInputView.h"
 
-@interface MBViewController : UIViewController <HPGrowingTextViewDelegate, UIBubbleTableViewDataSource>
+@interface MBViewController : UIViewController <MBInputViewDelegate, UIBubbleTableViewDataSource>
 
 @end
