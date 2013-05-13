@@ -54,8 +54,7 @@ static NSString * const MBSendButtonBackgroundImage = @"SendButton.png";
 
 - (id)initWithFrame:(CGRect)frame
 {
-    if (self = [super initWithFrame:frame])
-    {
+    if (self = [super initWithFrame:frame]) {
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
         
         UIImageView *background = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:MBInputViewBackgroundImage]
@@ -150,8 +149,7 @@ static NSString * const MBSendButtonBackgroundImage = @"SendButton.png";
 
 - (void)inputText
 {
-    if ([self.delegate respondsToSelector:@selector(inputView:didInputText:)])
-    {
+    if ([self.delegate respondsToSelector:@selector(inputView:didInputText:)]) {
         [self.delegate inputView:self didInputText:self.growingTextView.text];
     }
     self.growingTextView.text = @"";
@@ -167,8 +165,7 @@ static NSString * const MBSendButtonBackgroundImage = @"SendButton.png";
 
 - (void)growingTextView:(HPGrowingTextView *)growingTextView willChangeHeight:(float)height
 {
-    if ([self.delegate respondsToSelector:@selector(inputView:willChangeHeight:)])
-    {
+    if ([self.delegate respondsToSelector:@selector(inputView:willChangeHeight:)]) {
         [self.delegate inputView:self willChangeHeight:height];
     }
 }

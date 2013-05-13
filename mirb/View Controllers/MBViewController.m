@@ -32,7 +32,7 @@
 static CGFloat const MBBackgroundHue = 217.0 / 360.0;
 static CGFloat const MBBackgroundSaturation = 0.08;
 static CGFloat const MBBackgroundBrightness = 0.93;
-static CGFloat const MBContainerHeight = 40;
+static CGFloat const MBInputHeight = 40;
 static CGFloat const MBNewlineDelta = 20;
 
 @interface MBViewController ()
@@ -52,8 +52,7 @@ static CGFloat const MBNewlineDelta = 20;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
-    {
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
         self.state = mrb_open();
         self.context = mrbc_context_new(self.state);
         self.context->capture_errors = 1;
@@ -86,7 +85,7 @@ static CGFloat const MBNewlineDelta = 20;
     self.view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
     
     self.bubbleTableView = [UIBubbleTableView new];
-    self.bubbleTableView.frame = (CGRect){CGPointZero, self.view.frame.size.width, self.view.frame.size.height - MBContainerHeight};
+    self.bubbleTableView.frame = (CGRect){CGPointZero, self.view.frame.size.width, self.view.frame.size.height - MBInputHeight};
     self.bubbleTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     self.bubbleTableView.backgroundColor = [UIColor colorWithHue:MBBackgroundHue
                                                       saturation:MBBackgroundSaturation
@@ -96,9 +95,9 @@ static CGFloat const MBNewlineDelta = 20;
     self.bubbleTableView.bubbleDataSource = self;
     
     self.inputView = [[MBInputView alloc] initWithFrame:CGRectMake(0,
-                                                                   self.view.bounds.size.height - MBContainerHeight,
+                                                                   self.view.bounds.size.height - MBInputHeight,
                                                                    self.view.bounds.size.width,
-                                                                   MBContainerHeight)];
+                                                                   MBInputHeight)];
     self.inputView.delegate = self;
     
     [self.view addSubview:self.bubbleTableView];
@@ -108,13 +107,12 @@ static CGFloat const MBNewlineDelta = 20;
     
     __block MBInputView *blockInputView = self.inputView;
     __block UIBubbleTableView *blockBubbleTableView = self.bubbleTableView;
-    [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView)
-     {
+    [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView) {
          CGRect inputViewFrame = blockInputView.frame;
          inputViewFrame.origin.y = keyboardFrameInView.origin.y - inputViewFrame.size.height;
          blockInputView.frame = inputViewFrame;
          // Ensure that the growing text view will always have the proper maximum amount of lines
-         blockInputView.maxNumberOfLines = (blockInputView.frame.origin.y + blockInputView.frame.size.height - MBContainerHeight) / MBNewlineDelta + 1;
+         blockInputView.maxNumberOfLines = (blockInputView.frame.origin.y + blockInputView.frame.size.height - MBInputHeight) / MBNewlineDelta + 1;
          
          CGRect bubbleTableViewFrame = blockBubbleTableView.frame;
          bubbleTableViewFrame.size.height = inputViewFrame.origin.y;
@@ -144,7 +142,7 @@ static CGFloat const MBNewlineDelta = 20;
 
 - (void)inputView:(MBInputView *)inputView willChangeHeight:(CGFloat)height
 {
-    CGFloat delta = inputView.frame.size.height - height;
+    CGFloat delta = inputView.frame.size.height - (height > MBInputHeight ? height : MBInputHeight);
 	CGRect inputViewFrame = inputView.frame;
     
     inputViewFrame.size.height -= delta;
@@ -153,8 +151,7 @@ static CGFloat const MBNewlineDelta = 20;
     self.view.keyboardTriggerOffset = inputView.bounds.size.height;
     
     // Fixes a possible autorotation bug
-    if (self.bubbleTableView.frame.origin.y + self.bubbleTableView.frame.size.height < inputView.frame.origin.y)
-    {
+    if (self.bubbleTableView.frame.origin.y + self.bubbleTableView.frame.size.height < inputView.frame.origin.y) {
         CGRect bubbleTableFrame = self.bubbleTableView.frame;
         bubbleTableFrame.origin = CGPointZero;
         bubbleTableFrame.size.height = inputView.frame.origin.y;
@@ -168,22 +165,20 @@ static CGFloat const MBNewlineDelta = 20;
     NSString *output = [MBParser parse:text
                              withState:self.state
                                context:self.context
-                                 error:^(NSInteger lineNumber, NSInteger column, NSString *message)
-                        {
-                            [self addBubble:[NSString stringWithFormat:NSLocalizedString(@"Error: line %d column %d: %@", nil),
-                                              lineNumber,
-                                              column,
-                                              message]
-                                        type:BubbleTypeSomeoneElse];
-                        }
-                                  warn:^(NSInteger lineNumber, NSInteger column, NSString *message)
-                        {
-                            [self addBubble:[NSString stringWithFormat:NSLocalizedString(@"Warning: line %d column %d: %@", nil),
-                                              lineNumber,
-                                              column,
-                                              message]
-                                        type:BubbleTypeSomeoneElse];
-                        }];
+                                 error:^(NSInteger lineNumber, NSInteger column, NSString *message) {
+                                     [self addBubble:[NSString stringWithFormat:NSLocalizedString(@"Error: line %d column %d: %@", nil),
+                                                      lineNumber,
+                                                      column,
+                                                      message]
+                                                type:BubbleTypeSomeoneElse];
+                                 }
+                                  warn:^(NSInteger lineNumber, NSInteger column, NSString *message) {
+                                      [self addBubble:[NSString stringWithFormat:NSLocalizedString(@"Warning: line %d column %d: %@", nil),
+                                                       lineNumber,
+                                                       column,
+                                                       message]
+                                                 type:BubbleTypeSomeoneElse];
+                                  }];
     [self addBubble:NSLocalizedString(output, nil) type:BubbleTypeSomeoneElse];
 }
 
@@ -207,8 +202,7 @@ static CGFloat const MBNewlineDelta = 20;
                                                      date:[NSDate date]
                                                      type:type]];
     [self.bubbleTableView reloadData];
-    if (self.bubbleTableView.contentSize.height > self.bubbleTableView.bounds.size.height - self.bubbleTableView.contentInset.bottom)
-    {
+    if (self.bubbleTableView.contentSize.height > self.bubbleTableView.bounds.size.height - self.bubbleTableView.contentInset.bottom) {
         CGPoint end = CGPointMake(0, self.bubbleTableView.contentSize.height - self.bubbleTableView.bounds.size.height);
         [self.bubbleTableView setContentOffset:end animated:YES];
     }

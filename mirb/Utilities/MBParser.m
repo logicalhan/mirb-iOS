@@ -35,28 +35,22 @@
 {
     NSAssert(state != NULL, @"state should not be null");
     NSAssert(context != NULL, @"context should not be null");
-    NSString *resultAsString;
+    NSString *output;
     int arenaPosition = mrb_gc_arena_save(state);
     struct mrb_parser_state *parserState = mrb_parser_new(state);
-    const char *codeAsCString = code.UTF8String;
-    parserState->s = codeAsCString;
-    parserState->send = codeAsCString + strlen(codeAsCString);
+    const char *cStringCode = code.UTF8String;
+    parserState->s = cStringCode;
+    parserState->send = cStringCode + strlen(cStringCode);
     mrb_parser_parse(parserState, context);
-    if (error && parserState->nerr)
-    {
-        for (size_t i = 0; i < parserState->nerr; ++i)
-        {
+    if (error && parserState->nerr) {
+        for (size_t i = 0; i < parserState->nerr; ++i) {
             error(parserState->error_buffer[i].lineno,
                   parserState->error_buffer[i].column,
                   [NSString stringWithUTF8String:parserState->error_buffer[i].message]);
         }
-    }
-    else
-    {
-        if (warn)
-        {
-            for (size_t i = 0; i < parserState->nwarn; ++i)
-            {
+    } else {
+        if (warn) {
+            for (size_t i = 0; i < parserState->nwarn; ++i) {
                 warn(parserState->warn_buffer[i].lineno,
                      parserState->warn_buffer[i].column,
                      [NSString stringWithUTF8String:parserState->warn_buffer[i].message]);
@@ -70,23 +64,20 @@
         // Force the stdout buffer to output, necessary when not attached to the debugger on iOS > 5.1
         fflush(stdout);
         
-        if (state->exc)
-        {
-            resultAsString = [NSString stringWithValue:mrb_obj_value(state->exc) state:state];
+        if (state->exc) {
+            output = [NSString stringWithValue:mrb_obj_value(state->exc) state:state];
             state->exc = 0;
         }
-        else
-        {
-            if (!mrb_respond_to(state, result, mrb_intern(state, "inspect")))
-            {
+        else {
+            if (!mrb_respond_to(state, result, mrb_intern(state, "inspect"))) {
                 result = mrb_any_to_s(state, result);
             }
-            resultAsString = [NSString stringWithFormat:@"=> %@", [NSString stringWithValue:result state:state]];
+            output = [NSString stringWithFormat:@"=> %@", [NSString stringWithValue:result state:state]];
         }
     }
     mrb_parser_free(parserState);
     mrb_gc_arena_restore(state, arenaPosition);
     
-    return resultAsString;
+    return output;
 }
 @end
