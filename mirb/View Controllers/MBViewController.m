@@ -29,11 +29,11 @@
 #import "MBParser.h"
 #import "NSBubbleData+Code.h"
 
-static CGFloat const MBBackgroundHue = 217.0 / 360.0;
-static CGFloat const MBBackgroundSaturation = 0.08;
-static CGFloat const MBBackgroundBrightness = 0.93;
-static CGFloat const MBInputHeight = 40;
-static CGFloat const MBNewlineDelta = 20;
+static CGFloat const kMBBackgroundHue        = 217.0 / 360.0;
+static CGFloat const kMBBackgroundSaturation = 0.08;
+static CGFloat const kMBBackgroundBrightness = 0.93;
+static CGFloat const kMBInputHeight          = 40;
+static CGFloat const kMBNewlineDelta         = 20;
 
 @interface MBViewController ()
 
@@ -85,19 +85,19 @@ static CGFloat const MBNewlineDelta = 20;
     self.view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
     
     self.bubbleTableView = [UIBubbleTableView new];
-    self.bubbleTableView.frame = (CGRect){CGPointZero, self.view.frame.size.width, self.view.frame.size.height - MBInputHeight};
+    self.bubbleTableView.frame = (CGRect){CGPointZero, self.view.frame.size.width, self.view.frame.size.height - kMBInputHeight};
     self.bubbleTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    self.bubbleTableView.backgroundColor = [UIColor colorWithHue:MBBackgroundHue
-                                                      saturation:MBBackgroundSaturation
-                                                      brightness:MBBackgroundBrightness
+    self.bubbleTableView.backgroundColor = [UIColor colorWithHue:kMBBackgroundHue
+                                                      saturation:kMBBackgroundSaturation
+                                                      brightness:kMBBackgroundBrightness
                                                            alpha:1];
     self.bubbleTableView.typingBubble = NSBubbleTypingTypeNobody;
     self.bubbleTableView.bubbleDataSource = self;
     
     self.inputView = [[MBInputView alloc] initWithFrame:CGRectMake(0,
-                                                                   self.view.bounds.size.height - MBInputHeight,
+                                                                   self.view.bounds.size.height - kMBInputHeight,
                                                                    self.view.bounds.size.width,
-                                                                   MBInputHeight)];
+                                                                   kMBInputHeight)];
     self.inputView.delegate = self;
     
     [self.view addSubview:self.bubbleTableView];
@@ -112,7 +112,7 @@ static CGFloat const MBNewlineDelta = 20;
          inputViewFrame.origin.y = keyboardFrameInView.origin.y - inputViewFrame.size.height;
          blockInputView.frame = inputViewFrame;
          // Ensure that the growing text view will always have the proper maximum amount of lines
-         blockInputView.maxNumberOfLines = (blockInputView.frame.origin.y + blockInputView.frame.size.height - MBInputHeight) / MBNewlineDelta + 1;
+         blockInputView.maxNumberOfLines = (blockInputView.frame.origin.y + blockInputView.frame.size.height - kMBInputHeight) / kMBNewlineDelta + 1;
          
          CGRect bubbleTableViewFrame = blockBubbleTableView.frame;
          bubbleTableViewFrame.size.height = inputViewFrame.origin.y;
@@ -142,7 +142,7 @@ static CGFloat const MBNewlineDelta = 20;
 
 - (void)inputView:(MBInputView *)inputView willChangeHeight:(CGFloat)height
 {
-    CGFloat delta = inputView.frame.size.height - (height > MBInputHeight ? height : MBInputHeight);
+    CGFloat delta = inputView.frame.size.height - (height > kMBInputHeight ? height : kMBInputHeight);
 	CGRect inputViewFrame = inputView.frame;
     
     inputViewFrame.size.height -= delta;

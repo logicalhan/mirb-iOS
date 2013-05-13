@@ -20,14 +20,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-static CGFloat const MBFontSize = 15;
-static NSString * const MBFontName = @"SourceCodePro-Regular";
+static CGFloat const kMBFontSize    = 15;
+static NSString * const kMBFontName = @"SourceCodePro-Regular";
 
 @implementation UIFont (mirb)
 
 + (UIFont *)mirbFont
 {
-    return [UIFont fontWithName:MBFontName size:MBFontSize];
+    return [UIFont fontWithName:kMBFontName size:kMBFontSize];
 }
 
 @end

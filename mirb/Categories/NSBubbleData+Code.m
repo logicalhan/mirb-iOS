@@ -23,16 +23,16 @@
 #import "NSBubbleData+Code.h"
 #import "UIFont+mirb.h"
 
-static CGFloat const MBOutputBubbleToWindowRatio = 2.0 / 3.0;
-static UIEdgeInsets const MBInsetsMine = {5, 10, 11, 17};
-static UIEdgeInsets const MBInsetsSomeone = {5, 15, 11, 10};
+static CGFloat const kMBOutputBubbleToWindowRatio = 2.0 / 3.0;
+static UIEdgeInsets const kMBInsetsMine           = {5, 10, 11, 17};
+static UIEdgeInsets const kMBInsetsSomeone        = {5, 15, 11, 10};
 
 @implementation NSBubbleData (Code)
 
 + (UILabel *)labelWithCode:(NSString *)code
 {
     CGSize textSize = [code sizeWithFont:[UIFont mirbFont]
-                       constrainedToSize:CGSizeMake([UIScreen mainScreen].applicationFrame.size.width * MBOutputBubbleToWindowRatio, HUGE_VALF)
+                       constrainedToSize:CGSizeMake([UIScreen mainScreen].applicationFrame.size.width * kMBOutputBubbleToWindowRatio, HUGE_VALF)
                            lineBreakMode:NSLineBreakByWordWrapping];
     UILabel *label = [[UILabel alloc] initWithFrame:(CGRect){CGPointZero, textSize}];
     label.numberOfLines = 0;
@@ -49,7 +49,7 @@ static UIEdgeInsets const MBInsetsSomeone = {5, 15, 11, 10};
     return [self initWithView:[NSBubbleData labelWithCode:code]
                          date:date
                          type:type
-                       insets:type == BubbleTypeMine ? MBInsetsMine : MBInsetsSomeone];
+                       insets:type == BubbleTypeMine ? kMBInsetsMine : kMBInsetsSomeone];
 }
 
 + (id)dataWithCode:(NSString *)code date:(NSDate *)date type:(NSBubbleType)type
