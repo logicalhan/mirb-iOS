@@ -87,7 +87,9 @@
         mrb_gc_arena_restore(state, arenaPosition);
         
         dispatch_sync(dispatch_get_main_queue(), ^{
-            result(output);
+            if (result) {
+                result(output);
+            }
         });
     });
 }
