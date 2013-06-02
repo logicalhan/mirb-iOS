@@ -37,7 +37,7 @@
     NSAssert(state != NULL, @"state should not be null");
     NSAssert(context != NULL, @"context should not be null");
     
-    dispatch_queue_t backgroundQueue = dispatch_queue_create("com.jzzocc.mirb.backgroundQueue", NULL);
+    dispatch_queue_t backgroundQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(backgroundQueue, ^{
         NSString *output;
         int arenaPosition = mrb_gc_arena_save(state);
@@ -90,7 +90,5 @@
             result(output);
         });
     });
-    
-    dispatch_release(backgroundQueue);
 }
 @end
