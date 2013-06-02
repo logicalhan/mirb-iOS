@@ -162,24 +162,28 @@ static CGFloat const kMBNewlineDelta         = 20;
 - (void)inputView:(MBInputView *)inputView didInputText:(NSString *)text
 {
     [self addBubble:text type:BubbleTypeMine];
-    NSString *output = [MBParser parse:text
-                             withState:self.state
-                               context:self.context
-                                 error:^(NSInteger lineNumber, NSInteger column, NSString *message) {
-                                     [self addBubble:[NSString stringWithFormat:NSLocalizedString(@"Error: line %d column %d: %@", nil),
-                                                      lineNumber,
-                                                      column,
-                                                      message]
-                                                type:BubbleTypeSomeoneElse];
-                                 }
-                                  warn:^(NSInteger lineNumber, NSInteger column, NSString *message) {
-                                      [self addBubble:[NSString stringWithFormat:NSLocalizedString(@"Warning: line %d column %d: %@", nil),
-                                                       lineNumber,
-                                                       column,
-                                                       message]
-                                                 type:BubbleTypeSomeoneElse];
-                                  }];
-    [self addBubble:NSLocalizedString(output, nil) type:BubbleTypeSomeoneElse];
+    [MBParser parse:text
+          withState:self.state
+            context:self.context
+             result:^(NSString *result) {
+                 if (result) {
+                     [self addBubble:NSLocalizedString(result, nil) type:BubbleTypeSomeoneElse];
+                 }
+             }
+              error:^(NSInteger lineNumber, NSInteger column, NSString *message) {
+                  [self addBubble:[NSString stringWithFormat:NSLocalizedString(@"Error: line %d column %d: %@", nil),
+                                   lineNumber,
+                                   column,
+                                   message]
+                             type:BubbleTypeSomeoneElse];
+              }
+               warn:^(NSInteger lineNumber, NSInteger column, NSString *message) {
+                   [self addBubble:[NSString stringWithFormat:NSLocalizedString(@"Warning: line %d column %d: %@", nil),
+                                    lineNumber,
+                                    column,
+                                    message]
+                              type:BubbleTypeSomeoneElse];
+               }];
 }
 
 #pragma mark - stdout pipe handling

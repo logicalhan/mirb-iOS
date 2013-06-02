@@ -27,57 +27,68 @@
 
 @implementation MBParser
 
-+ (NSString *)parse:(NSString *)code
-          withState:(mrb_state *)state
-            context:(mrbc_context *)context
-              error:(MBParserMessageBlock)error
-               warn:(MBParserMessageBlock)warn
++ (void)parse:(NSString *)code
+    withState:(mrb_state *)state
+      context:(mrbc_context *)context
+       result:(MBParserResultBlock)result
+        error:(MBParserMessageBlock)error
+         warn:(MBParserMessageBlock)warn
 {
     NSAssert(state != NULL, @"state should not be null");
     NSAssert(context != NULL, @"context should not be null");
-    NSString *output;
-    int arenaPosition = mrb_gc_arena_save(state);
-    struct mrb_parser_state *parserState = mrb_parser_new(state);
-    const char *cStringCode = code.UTF8String;
-    parserState->s = cStringCode;
-    parserState->send = cStringCode + strlen(cStringCode);
-    mrb_parser_parse(parserState, context);
-    if (error && parserState->nerr) {
-        for (size_t i = 0; i < parserState->nerr; ++i) {
-            error(parserState->error_buffer[i].lineno,
-                  parserState->error_buffer[i].column,
-                  [NSString stringWithUTF8String:parserState->error_buffer[i].message]);
-        }
-    } else {
-        if (warn) {
-            for (size_t i = 0; i < parserState->nwarn; ++i) {
-                warn(parserState->warn_buffer[i].lineno,
-                     parserState->warn_buffer[i].column,
-                     [NSString stringWithUTF8String:parserState->warn_buffer[i].message]);
-            }
-        }
-        
-        int n = mrb_generate_code(state, parserState);
-        mrb_value result = mrb_run(state,
-                                   mrb_proc_new(state, state->irep[n]),
-                                   mrb_top_self(state));
-        // Force the stdout buffer to output, necessary when not attached to the debugger on iOS > 5.1
-        fflush(stdout);
-        
-        if (state->exc) {
-            output = [NSString stringWithValue:mrb_obj_value(state->exc) state:state];
-            state->exc = 0;
-        }
-        else {
-            if (!mrb_respond_to(state, result, mrb_intern(state, "inspect"))) {
-                result = mrb_any_to_s(state, result);
-            }
-            output = [NSString stringWithFormat:@"=> %@", [NSString stringWithValue:result state:state]];
-        }
-    }
-    mrb_parser_free(parserState);
-    mrb_gc_arena_restore(state, arenaPosition);
     
-    return output;
+    dispatch_queue_t queue = dispatch_queue_create("com.jzzocc.mirb.backgroundQueue", NULL);
+    dispatch_async(queue, ^{
+        NSString *output;
+        int arenaPosition = mrb_gc_arena_save(state);
+        struct mrb_parser_state *parserState = mrb_parser_new(state);
+        const char *cStringCode = code.UTF8String;
+        parserState->s = cStringCode;
+        parserState->send = cStringCode + strlen(cStringCode);
+        mrb_parser_parse(parserState, context);
+        if (error && parserState->nerr) {
+            for (size_t i = 0; i < parserState->nerr; ++i) {
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    error(parserState->error_buffer[i].lineno,
+                          parserState->error_buffer[i].column,
+                          [NSString stringWithUTF8String:parserState->error_buffer[i].message]);
+                });
+            }
+        } else {
+            if (warn) {
+                for (size_t i = 0; i < parserState->nwarn; ++i) {
+                    dispatch_sync(dispatch_get_main_queue(), ^{
+                        warn(parserState->warn_buffer[i].lineno,
+                             parserState->warn_buffer[i].column,
+                             [NSString stringWithUTF8String:parserState->warn_buffer[i].message]);
+                    });
+                }
+            }
+            
+            int n = mrb_generate_code(state, parserState);
+            mrb_value resultValue = mrb_run(state,
+                                       mrb_proc_new(state, state->irep[n]),
+                                       mrb_top_self(state));
+            // Force the stdout buffer to output, necessary when not attached to the debugger on iOS > 5.1
+            fflush(stdout);
+            
+            if (state->exc) {
+                output = [NSString stringWithValue:mrb_obj_value(state->exc) state:state];
+                state->exc = 0;
+            }
+            else {
+                if (!mrb_respond_to(state, resultValue, mrb_intern(state, "inspect"))) {
+                    resultValue = mrb_any_to_s(state, resultValue);
+                }
+                output = [NSString stringWithFormat:@"=> %@", [NSString stringWithValue:resultValue state:state]];
+            }
+        }
+        mrb_parser_free(parserState);
+        mrb_gc_arena_restore(state, arenaPosition);
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            result(output);
+        });
+    });
 }
 @end

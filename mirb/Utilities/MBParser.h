@@ -24,14 +24,16 @@
 #import <MRuby/MRuby.h>
 #import <MRuby/mruby/compile.h>
 
+typedef void(^MBParserResultBlock)(NSString *result);
 typedef void(^MBParserMessageBlock)(NSInteger lineNumber, NSInteger column, NSString *message);
 
 @interface MBParser : NSObject
 
-+ (NSString *)parse:(NSString *)code
-          withState:(mrb_state *)state
-            context:(mrbc_context *)context
-              error:(MBParserMessageBlock)error
-               warn:(MBParserMessageBlock)warn;
++ (void)parse:(NSString *)code
+    withState:(mrb_state *)state
+      context:(mrbc_context *)context
+       result:(MBParserResultBlock)result
+        error:(MBParserMessageBlock)error
+         warn:(MBParserMessageBlock)warn;
 
 @end
